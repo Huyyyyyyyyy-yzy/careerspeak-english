@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JobComm | Khảo sát đồ án</title>
+<meta name="description" content="Phiếu khảo sát đánh giá Đồ án 3 – JobComm – 7 tiêu chí Likert">
+<style>
+:root{--navy:#24225d;--purple:#594ce2;--violet:#edeaff;--ink:#1d2c4b;--muted:#6b7896;--border:#dde3f2;--background:#f5f7fe}
+*{box-sizing:border-box}body{margin:0;background:var(--background);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);font-size:15px}
+a{text-decoration:none;color:inherit}button,input,textarea{font:inherit}button{cursor:pointer}
+.topbar{background:white;box-shadow:0 1px 0 #e4e8f2;position:sticky;top:0;z-index:20}.nav{max-width:1220px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:15px}.logo{font-size:22px;font-weight:900;color:#292257;white-space:nowrap}.links{display:flex;align-items:center;gap:4px;flex-wrap:wrap}.links a{padding:10px 12px;font-size:13px;font-weight:700;border-radius:12px;color:#424563;white-space:nowrap}.links a:hover,.links a.active{color:#5141d0;background:#f0eeff}.right{display:flex;align-items:center;gap:10px}.lang{background:#f0edff;border:0;border-radius:18px;color:#5343cc;padding:9px 14px;font-size:13px;font-weight:800;white-space:nowrap}.user{border:1px solid #d9ddf7;color:#4f44a5;border-radius:25px;padding:9px 12px;font-size:12px;font-weight:700;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hero{background:linear-gradient(105deg,#ebeaff 0%,#f0f8ff 100%);text-align:center;padding:49px 18px 43px}.eyebrow{font-size:12px;color:#5145cb;font-weight:900;letter-spacing:1.3px}.hero h1{font-size:clamp(27px,3.4vw,40px);letter-spacing:-.8px;margin:15px 0 12px;color:#26245c}.hero p{color:#6c7391;line-height:1.75;max-width:800px;margin:auto}
+.wrap{max-width:1060px;margin:auto;padding:32px 18px 64px}.survey-box{border-radius:25px;background:white;border:1px solid #e2e7f4;padding:28px;box-shadow:0 18px 50px #27255f09}.intro-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}.research{border-left:4px solid #816dec;background:#f6f4ff;color:#615e8a;border-radius:0 10px 10px 0;padding:12px 14px;line-height:1.6;font-size:13px;margin-bottom:22px}
+.identity{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#f7faff;border:1px solid var(--border);padding:14px 18px;border-radius:14px;margin-bottom:18px;font-size:13px}.identity label{color:#77839d;font-size:12px}.identity strong{display:block;margin-top:4px;color:#232a56;font-size:14px}
+.progress-panel{background:#f8faff;border:1px solid #dee5f3;border-radius:14px;padding:16px 18px;margin-bottom:20px}.progress-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:800;margin-bottom:10px}.meter{height:9px;background:#e2e6f1;border-radius:99px;overflow:hidden}.meter span{display:block;height:100%;background:linear-gradient(90deg,#8276f7,#4c43d4);width:0;transition:width .15s}
+#questionList{display:grid;gap:16px}.question-card{border:1px solid #dfe5f2;border-radius:18px;margin:0;padding:19px 19px 21px;min-width:0}.question-title{font-weight:900;color:#243054;font-size:16px;padding:0;line-height:1.5}.required{color:#b94668;font-size:11px;font-weight:700;margin-top:3px}.question-description{margin:12px 0 17px;color:#697997;line-height:1.7;font-size:13px}.rating-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}.rating-option{display:flex;align-items:center;gap:9px;padding:12px 10px;min-height:68px;border:1px solid #dde4ef;border-radius:13px;cursor:pointer;font-size:12px;color:#344361;line-height:1.5;transition:background .1s,border .1s}.rating-option:hover{border-color:#b8b0ff;background:#faf8ff}.rating-option:has(input:checked){background:#eeecff;border-color:#6557e7;box-shadow:0 0 0 1px #6557e7}.rating-option input{accent-color:#5c4fe4;flex-shrink:0}
+.free{margin-top:22px;background:#fafbff;border:1px solid #dfe5f2;padding:20px;border-radius:17px}.free h3{margin:0 0 13px;font-size:16px}.free textarea{border:1px solid #d1dcee;border-radius:13px;outline:none;resize:vertical;width:100%;min-height:100px;padding:13px 14px;color:#26345d;background:white;line-height:1.6}.free textarea:focus,.admin-input:focus{border-color:#564cdb;box-shadow:0 0 0 3px #5548dc1e}.consent{margin:20px 0 16px;color:#63708a;line-height:1.65;display:flex;align-items:flex-start;gap:10px;font-size:13px}.consent input{margin-top:4px;accent-color:var(--purple)}.privacy{font-size:12px;color:#7d879e;line-height:1.7;border-bottom:1px solid #e9edf6;padding-bottom:20px}.primary{background:#5548dc;color:white;border:0;border-radius:13px;padding:15px 21px;font-weight:850;display:inline-flex;align-items:center;justify-content:center}.primary:hover{background:#4538bb}.primary:disabled{opacity:.55;cursor:not-allowed}.primary.full{width:100%;margin-top:12px}.status{font-weight:700;font-size:13px;margin:14px 0 0}.status.success{color:#147854}.status.error{color:#b42c46}
+.stats{border-top:1px solid #e4e8f2;margin-top:34px;padding-top:27px}.stats-head{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}.stats h2{font-size:22px;margin:0 0 9px}.stats .desc{font-size:13px;color:#7e88a0}.secondary{border:1px solid #cfd5e8;border-radius:12px;padding:11px 17px;background:#fafbff;color:#414f72;font-weight:800;font-size:13px}.secondary:hover{background:#f0edff}.results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}.total-summary{display:flex;gap:14px;align-items:baseline;margin-top:22px}.total-summary strong{font-size:35px;color:#4e46d1}.total-summary span{font-size:13px;color:#69758f;font-weight:800}.result-card{border:1px solid #dce3f2;border-radius:15px;padding:17px;background:#fbfcff}.result-name{font-size:12px;color:#69728b;line-height:1.5;min-height:36px}.result-average{display:block;font-size:23px;margin:10px 0;color:#413ac3}.mini-bar{height:9px;display:flex;border-radius:8px;overflow:hidden;gap:1px}.mini-bar span{min-width:1px}.bar-1{background:#eab0b6}.bar-2{background:#ffc78a}.bar-3{background:#f7e58e}.bar-4{background:#95d7d7}.bar-5{background:#8ea0fa}.distribution{display:block;color:#69748e;margin-top:10px}.empty{font-size:13px;color:#77839b;margin:13px 0}.mode-notice{margin:14px 0 0;font-size:12px;line-height:1.6;padding:12px 14px;border-radius:12px}.mode-notice.demo{background:#fff7de;color:#836425;border:1px solid #f3dfa6}.mode-notice.live{background:#eaf9f0;color:#237c55;border:1px solid #bce1cd}.export-help{font-size:12px;color:#7c87a0;line-height:1.6}
+.modal{position:fixed;inset:0;background:#0c1a36ac;display:grid;place-items:center;padding:16px;z-index:55}.modal[hidden]{display:none}.modal-card{max-width:470px;background:#fff;border-radius:23px;width:100%;padding:28px;box-shadow:0 40px 80px #101b3450}.modal-card h2{font-size:22px;margin:0 0 10px}.modal-card p{font-size:14px;color:#71809b;line-height:1.7}.modal-card label{font-weight:800;font-size:13px;color:#3b4667}.admin-input{width:100%;padding:14px;border-radius:12px;border:1px solid #d4ddec;outline:none;margin-top:9px}.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}.modal-actions button{flex:1}.modal-error{min-height:17px;font-size:12px;color:#b42c46;margin:9px 0}
+footer{background:#252252;color:#e7e7fc;padding:30px 20px;text-align:center;font-size:12px}
+@media(max-width:950px){.nav{flex-wrap:wrap}.links{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.rating-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.wrap{padding:22px 12px 46px}.survey-box{padding:19px 14px}.rating-grid{grid-template-columns:1fr 1fr}.rating-option{min-height:60px}.results-grid{grid-template-columns:1fr}.identity{gap:20px}.nav{padding:12px}.hero{padding:33px 14px}.modal-actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="nav"><a class="logo" href="home.html">JobComm</a><nav class="links" aria-label="Main navigation"><a id="navHome" href="home.html">Trang chủ</a><a id="navCourses" href="courses.html">Khóa học</a><a id="navInterview" href="interview.html">Phỏng vấn thử</a><a id="navCareer" href="career-lab.html">Phòng luyện tập</a><a class="active" id="navSurvey" aria-current="page" href="survey.html">Khảo sát đồ án</a></nav><div class="right"><button id="languageButton" class="lang" type="button">VI / EN</button><span class="user" id="studentName">Học viên</span></div></div></header>
+<section class="hero"><div class="eyebrow" id="eyebrow">KHOA NGOẠI NGỮ · ĐỒ ÁN 3</div><h1 id="surveyTitle">Khảo sát đánh giá Đồ án 3</h1><p id="introduction">Bảy câu hỏi đánh giá theo 5 mức độ và phần góp ý tự do.</p></section>
+<main class="wrap"><div class="survey-box">
+<div class="research" id="surveyResearch"></div>
+<div class="identity"><div><label>Người tham gia / Student</label><strong id="studentNameDuplicate">—</strong></div><div><label>Mã sinh viên / Student ID</label><strong id="studentId">—</strong></div><div><label>JobComm · Đồ án 3</label><strong>HUFLIT · 2026</strong></div></div>
+<div class="progress-panel"><div class="progress-top"><span id="progressText">Tiến độ: 0/7 câu</span><span>1–5 ★</span></div><div class="meter" aria-hidden="true"><span id="progressBar"></span></div></div>
+<form id="surveyForm"><div id="questionList"></div><div class="free"><h3 id="freeTitle">8. Đóng góp ý kiến tự do</h3><textarea id="freeAnswer" maxlength="3000" placeholder="Viết góp ý..." aria-label="Góp ý tự do"></textarea></div><label class="consent"><input id="consent" type="checkbox" required><span id="consentText"></span></label><p class="privacy" id="privacy"></p><button class="primary full" id="submitButton" type="submit">Gửi Khảo Sát (0/7 câu)</button><p id="status" class="status" role="status" aria-live="polite"></p></form>
+<section class="stats"><div class="stats-head"><div><h2 id="summaryTitle">Bảng thống kê kết quả khảo sát</h2><p class="desc" id="summaryDesc">Số phiếu và điểm trung bình</p></div><button id="exportButton" type="button" class="secondary">⬇ Xuất bảng Excel (.xlsx)</button></div><p id="modeNotice" class="mode-notice demo"></p><div id="summaryContent" aria-live="polite"></div><p id="exportHelp" class="export-help"></p></section>
+</div></main>
+<footer>© 2026 JobComm · Student project survey · HUFLIT</footer>
+<div id="passwordDialog" class="modal" hidden><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="passwordTitle"><h2 id="passwordTitle">Bảo mật dữ liệu khảo sát</h2><p id="passwordDesc">Vui lòng nhập mật khẩu.</p><form id="passwordForm"><label id="passwordLabel" for="adminPassword">Mật khẩu quản trị</label><input id="adminPassword" class="admin-input" type="password" autocomplete="off" required><p id="passwordError" class="modal-error" role="alert"></p><div class="modal-actions"><button id="cancelPassword" type="button" class="secondary">Hủy bỏ</button><button id="confirmPassword" type="submit" class="primary">Xác nhận & tải Excel</button></div></form></div></div>
+<iframe name="surveyBackendFrame" id="surveyBackendFrame" title="Survey backend" style="display:none"></iframe>
+<script>
+(() => {
+'use strict';
+/* To collect answers across DIFFERENT devices, paste the deployed Google Apps Script URL below.
+   Leave blank to test locally; local mode cannot count all students. */
+const BACKEND_URL = ''; // e.g. https://script.google.com/macros/s/AKfycb.../exec
+const LOCAL_ADMIN_PIN = '0000'; // DEMO ONLY. Real PIN 8386 is checked ONLY in private Code.gs.
+const SESSION_KEY = 'jobcomm-v8-tab-session';
+const PROFILES_KEY = 'jobcomm-v8-local-profiles';
+const LANG_KEY = 'jobcomm-language';
+const DEMO_KEY = 'jobcomm-survey-local-responses-v1';
+const PENDING_MS = 25000;
+const QUESTION_DATA = [
+  {name:'Tâm lý thoải mái & môi trường hỗ trợ luyện tập',en:'Practice Comfort & Low Pressure Environment',
+    vi:'Môi trường phỏng vấn giả lập AI thân thiện, không phán xét giúp em cảm thấy thoải mái, tự nhiên và bớt áp lực hơn so với khi tự luyện tập một mình hoặc phỏng vấn thật.',
+    enDesc:'A friendly, non-judgmental AI interview simulation helps me feel comfortable and less pressured than practising alone or attending a real interview.'},
+  {name:'Nâng cao phản xạ và sự tự tin giao tiếp',en:'Communication Confidence & Fluency',
+    vi:'Việc thực hành đối thoại trực tiếp bằng giọng nói hoặc văn bản với AI giúp em phản xạ nhanh hơn và tự tin hơn khi giao tiếp Business English.',
+    enDesc:'Practising spoken or written dialogues with AI helps me respond faster and feel more confident when using Business English.'},
+  {name:'Hiệu quả cấu trúc câu trả lời theo khung STAR',en:'STAR Method Practical Application',
+    vi:'Gợi ý và cấu trúc câu trả lời theo mô hình STAR (Situation, Task, Action, Result) giúp em tổ chức câu chuyện rõ ràng, có chiều sâu và thuyết phục hơn.',
+    enDesc:'The STAR method (Situation, Task, Action, Result) helps me organise answers clearly and persuasively.'},
+  {name:'Tính xác thực và thực tế của 5 vị trí việc làm',en:'Workplace Context & Job Relevance',
+    vi:'Các câu hỏi tình huống theo 5 nhóm ngành (Admin, HR, Marketing, Logistics, Hospitality) sát với yêu cầu phỏng vấn tuyển dụng thực tế hiện nay.',
+    enDesc:'Situational questions across five fields (Admin, HR, Marketing, Logistics, Hospitality) reflect today’s recruitment expectations.'},
+  {name:'Độ hữu ích của nhận xét & chấm điểm tức thì',en:'Instant AI Feedback & Scoring',
+    vi:'Phần đánh giá chi tiết theo tiêu chí (điểm số, mức độ sẵn sàng, điểm nổi bật và lời khuyên cải thiện) giúp em nhận biết ngay điểm cần hoàn thiện.',
+    enDesc:'Detailed feedback (score, readiness, strengths and suggestions) helps me identify areas to improve quickly.'},
+  {name:'Hỗ trợ từ vựng chuyên ngành & phát âm',en:'Vocabulary & Pronunciation Support',
+    vi:'Bảng thuật ngữ chuyên ngành có phiên âm IPA và audio phát âm mẫu hỗ trợ đắc lực cho em trong việc ghi nhớ và phát âm chuẩn xác thuật ngữ thương mại.',
+    enDesc:'Specialised vocabulary lists with IPA and audio support learning and pronunciation of business terminology.'},
+  {name:'Mức độ sẵn sàng & tính ứng dụng trong học tập',en:'Overall Readiness & Academic Adoption',
+    vi:'Em cảm thấy tự tin và sẵn sàng hơn cho các buổi phỏng vấn tuyển dụng thật và ủng hộ việc ứng dụng công cụ AI này trong học phần Thực Hành Tiếng Anh tại HUFLIT.',
+    enDesc:'I feel more prepared for real job interviews and support integrating this AI tool into the English Practice course at HUFLIT.'}
+];
+const LABELS = {
+ vi: {
+  nav:['Trang chủ','Khóa học','Phỏng vấn thử','Phòng luyện tập','Khảo sát đồ án'],navAccount:'Hồ sơ',
+  eyebrow:'KHOA NGOẠI NGỮ · ĐỒ ÁN 3: THỰC HÀNH NGÔN NGỮ ANH',title:'Khảo sát đánh giá Đồ án 3',
+  introduction:'Phiếu khảo sát gồm 7 tiêu chí bắt buộc theo thang điểm 1–5 và 1 ý kiến tự do. Mỗi mã số sinh viên có một phiếu khảo sát (có thể cập nhật phiếu).',
+  required:'Bắt buộc',free:'8. Đóng góp ý kiến tự do hoàn thiện đề tài nghiên cứu Đồ án 3',freePH:'Nhập nhận xét, trải nghiệm hoặc đề xuất cải thiện...',
+  scale:['Hoàn toàn không đồng ý','Không đồng ý','Bình thường','Đồng ý','Hoàn toàn đồng ý'],
+  progress:'Tiến độ',count:'câu',send:'Gửi Khảo Sát Nghiên Cứu Đề Tài',saving:'Đang gửi...',success:'Đã ghi nhận câu trả lời. Cảm ơn bạn đã tham gia khảo sát!',updated:'Đã cập nhật phiếu khảo sát của bạn.',
+  incomplete:'Vui lòng trả lời đủ cả 7 câu bắt buộc.',confirm:'Bạn xác nhận gửi 7 câu đánh giá? Bạn có thể cập nhật câu trả lời sau.',
+  totals:'Bảng thống kê kết quả khảo sát',responses:'Số phiếu đã ghi nhận',reportDesc:'Kết quả trung bình và phân bố lựa chọn theo từng tiêu chí.',
+  average:'Điểm trung bình',admin:'Xuất bảng Excel (.xlsx)',passTitle:'Bảo mật dữ liệu khảo sát',passDesc:'Chỉ người quản lý được phép tải dữ liệu và thống kê Excel. Hãy nhập mật khẩu quản trị.',
+  passLabel:'Nhập mật khẩu quản trị',passWrong:'Mật khẩu không đúng.',cancel:'Hủy bỏ',download:'Xác nhận & tải Excel',
+  localNotice:'CHẾ ĐỘ DEMO: Dữ liệu chỉ lưu trong trình duyệt này; không tổng hợp giữa các thiết bị. Mã xuất thử 0000 công khai trong mã nguồn, KHÔNG bảo mật thực sự. PIN quản trị 8386 chỉ lưu ở máy chủ.',
+  liveNotice:'Chế độ kết nối Google Sheets: dữ liệu được tổng hợp giữa các thiết bị; mật khẩu xuất Excel được kiểm tra trên máy chủ.',
+  privacy:'Đây là khảo sát đồ án, không phải biểu mẫu chính thức của HUFLIT. Khi sử dụng chế độ online, họ tên, MSSV và câu trả lời sẽ được gửi đến Google Sheets của nhóm nghiên cứu. Chỉ cung cấp thông tin khi đã đồng ý tham gia.',
+  consent:'Tôi đồng ý gửi thông tin và câu trả lời cho nhóm thực hiện Đồ án 3 để tổng hợp kết quả nghiên cứu.',
+  consentWarning:'Bạn cần đồng ý trước khi gửi khảo sát.',
+  research:'Lưu ý nghiên cứu: Một số câu hỏi nhắc đến AI giọng nói, 5 ngành nghề và IPA/audio. Chỉ đánh giá trải nghiệm thực tế; các tính năng chưa có trên JobComm không nên được trình bày là đã kiểm chứng.',
+  guest:'Khách dùng thử',noSheet:'Chưa có dữ liệu khảo sát.',loading:'Đang tải thống kê...',error:'Không thể kết nối máy chủ. Vui lòng kiểm tra đường dẫn và triển khai Google Apps Script.',
+  noAdmin:'Vui lòng nhập mật khẩu.',downloadOk:'Đã tạo bảng Excel.',localSaved:'Đã lưu trên thiết bị này.',offlineNoIdentity:'Hồ sơ đăng nhập không tồn tại; hãy đăng nhập lại từ trang đầu tiên.',
+  adminNote:'Bản Excel có trang Thống kê và Câu trả lời, gồm số phiếu, điểm trung bình và số lượt chọn mức 1–5.'
+ },
+ en: {
+  nav:['Home','Courses','Mock Interview','Career Lab','Project Survey'],navAccount:'Profile',
+  eyebrow:'FACULTY OF FOREIGN LANGUAGES · PROJECT 3: ENGLISH PRACTICE',title:'Project Evaluation Survey',
+  introduction:'Seven required Likert-scale statements (1–5), plus an optional free-text comment. One response per student ID, which can be updated.',
+  required:'Required',free:'8. Additional comments and suggestions',freePH:'Share your experience or recommendations...',
+  scale:['Strongly disagree','Disagree','Neutral','Agree / comfortable','Strongly agree / excellent'],
+  progress:'Progress',count:'questions',send:'Submit project survey',saving:'Submitting...',success:'Your answers have been recorded. Thank you!',updated:'Your response has been updated.',
+  incomplete:'Please answer all seven required questions.',confirm:'Submit your seven ratings? You can update them later.',
+  totals:'Survey results overview',responses:'Recorded responses',reportDesc:'Average scores and distribution of 1–5 ratings by criterion.',
+  average:'Mean score',admin:'Export Excel (.xlsx)',passTitle:'Survey data protection',passDesc:'Export is restricted to the project administrator. Enter the administrator password.',
+  passLabel:'Administrator password',passWrong:'Incorrect password.',cancel:'Cancel',download:'Confirm & download Excel',
+  localNotice:'DEMO MODE: Data stays in this browser and is NOT aggregated across devices. Demo code 0000 is visible in public source and is not real security. The actual admin PIN is server-only.',
+  liveNotice:'Connected to Google Sheets: submissions are aggregated across devices and the export password is checked on the server.',
+  privacy:'This is a student project survey, not an official HUFLIT form. Online mode sends name, student ID and answers to the research group’s Google Sheet. Participate only with consent.',
+  consent:'I agree to share my details and answers with the project team for research analysis.',
+  consentWarning:'Consent is required to submit.',
+  research:'Research caution: Some items describe AI voice, five job fields, and IPA/audio. Rate actual experience only; unavailable features should not be described as empirically validated.',
+  guest:'Guest learner',noSheet:'No survey responses yet.',loading:'Loading summary...',error:'Server unavailable. Check your Google Apps Script URL and deployment.',
+  noAdmin:'Please enter a password.',downloadOk:'Excel workbook generated.',localSaved:'Saved on this device.',offlineNoIdentity:'Login profile not found; return to the login page.',
+  adminNote:'The Excel workbook includes Summary and Responses sheets, response count, means and per-rating counts.'
+ }
+};
+let lang=(localStorage.getItem(LANG_KEY)==='en')?'en':'vi';
+const $=id=>document.getElementById(id);
+const isLive=BACKEND_URL.trim().startsWith('https://script.google.com/macros/s/');
+let identity={fullName:'',studentId:''};
+let snapshot=[]; // remote mode holds summary only, not raw rows
+let remoteSummary=null;
+let busy=false;
+let operation=null;
+let nonceCounter=0;
+function getProfile(){
+ const id=sessionStorage.getItem(SESSION_KEY);
+ let users={};try{users=JSON.parse(localStorage.getItem(PROFILES_KEY)||'{}');}catch(e){}
+ if(id && users[id]){identity={fullName:users[id].displayName||'',studentId:id};}
+ else identity={fullName:'',studentId:''};
+ $('studentName').textContent=identity.fullName||LABELS[lang].guest; $('studentNameDuplicate').textContent=identity.fullName||LABELS[lang].guest;
+ $('studentId').textContent=identity.studentId||'—';
+ return Boolean(identity.studentId);
+}
+function localRows(){try{const r=JSON.parse(localStorage.getItem(DEMO_KEY)||'[]');return Array.isArray(r)?r:[]}catch(e){return []}}
+function hasAnswered(){return QUESTION_DATA.every((_,i)=>document.querySelector(`input[name="q${i+1}"]:checked`));}
+function ratingValues(){return QUESTION_DATA.map((_,i)=>{let e=document.querySelector(`input[name="q${i+1}"]:checked`);return e?Number(e.value):null;})}
+function updateProgress(){let chosen=ratingValues().filter(Number.isFinite).length;$('progressText').textContent=`${LABELS[lang].progress}: ${chosen}/7 ${LABELS[lang].count}`;$('progressBar').style.width=`${(chosen/7*100).toFixed(1)}%`;$('submitButton').textContent=`${LABELS[lang].send} (${chosen}/7 ${LABELS[lang].count})`;}
+function createText(node,tag,text,cls){const item=document.createElement(tag);if(cls)item.className=cls;item.textContent=text;node.appendChild(item);return item;}
+function renderQuestions(){
+ const container=$('questionList');container.replaceChildren();
+ const t=LABELS[lang];QUESTION_DATA.forEach((q,i)=>{
+  const card=document.createElement('fieldset');card.className='question-card';
+  const legend=document.createElement('legend');legend.className='question-title';legend.textContent=`${i+1}. ${lang==='vi'?q.name:q.en} (${q.en})`;if(lang==='en')legend.textContent=`${i+1}. ${q.en}`;card.appendChild(legend);
+  createText(card,'div',t.required,'required');createText(card,'p',lang==='vi'?q.vi:q.enDesc,'question-description');
+  const choices=document.createElement('div');choices.className='rating-grid';
+  for(let rating=1;rating<=5;rating++){
+   const label=document.createElement('label');label.className='rating-option';label.setAttribute('for',`q${i+1}r${rating}`);
+   const input=document.createElement('input');input.type='radio';input.name=`q${i+1}`;input.id=`q${i+1}r${rating}`;input.value=rating;input.required=true;
+   const span=document.createElement('span');span.textContent=`${rating}. ${((i===0 && lang==='vi')?['Hoàn toàn không đồng ý','Không đồng ý','Bình thường','Khá thoải mái','Rất thoải mái và được hỗ trợ tốt']:t.scale)[rating-1]}`;label.append(input,span);choices.append(label);
+  }card.append(choices);container.append(card);
+ });
+ // All radio changes use event delegation; avoid adding one handler per option.
+ container.addEventListener('change',updateProgress);
+ updateProgress();
+}
+function languageUI(){const t=LABELS[lang];document.documentElement.lang=lang;
+ ['navHome','navCourses','navInterview','navCareer','navSurvey'].forEach((id,i)=>$(id).textContent=t.nav[i]);
+ $('languageButton').textContent=lang==='vi'?'VI / EN':'EN / VI';$('eyebrow').textContent=t.eyebrow;$('surveyTitle').textContent=t.title;$('introduction').textContent=t.introduction;
+ $('freeTitle').textContent=t.free;$('freeAnswer').placeholder=t.freePH;$('privacy').textContent=t.privacy;$('consentText').textContent=t.consent;
+ $('surveyResearch').textContent=t.research;$('summaryTitle').textContent=t.totals;$('summaryDesc').textContent=t.reportDesc;$('exportButton').textContent=t.admin;
+ $('passwordTitle').textContent=t.passTitle;$('passwordDesc').textContent=t.passDesc;$('passwordLabel').textContent=t.passLabel;$('cancelPassword').textContent=t.cancel;$('confirmPassword').textContent=t.download;$('exportHelp').textContent=t.adminNote;
+ $('modeNotice').textContent=isLive?t.liveNotice:t.localNotice;$('modeNotice').className='mode-notice '+(isLive?'live':'demo');
+ $('submitButton').textContent=t.send; const old=ratingValues();renderQuestions();old.forEach((v,i)=>{const node=document.querySelector(`input[name="q${i+1}"][value="${v}"]`);if(node)node.checked=true});
+ getProfile();updateProgress();renderSummary();
+}
+function summaryOf(rows){const counts=QUESTION_DATA.map((_,i)=>[0,0,0,0,0]);rows.forEach(row=>{row.ratings.forEach((v,i)=>{if(v>=1&&v<=5)counts[i][v-1]++})});return {total:rows.length,counts,averages:counts.map(c=>{let n=c.reduce((a,b)=>a+b,0);return n ? c.reduce((a,v,i)=>a+v*(i+1),0)/n : 0})};}
+function renderSummary(){const summary=isLive?remoteSummary:summaryOf(localRows());const target=$('summaryContent');target.replaceChildren();const t=LABELS[lang];
+ if(!summary){createText(target,'div',t.loading,'empty');return;}
+ const total=document.createElement('div');total.className='total-summary';createText(total,'strong',summary.total.toLocaleString(lang==='vi'?'vi-VN':'en-US'));createText(total,'span',t.responses);target.append(total);
+ if(summary.total===0){createText(target,'p',t.noSheet,'empty');return;}
+ const grid=document.createElement('div');grid.className='results-grid';summary.averages.forEach((avg,i)=>{
+ const card=document.createElement('div');card.className='result-card';createText(card,'div',`${i+1}. ${lang==='vi'?QUESTION_DATA[i].name:QUESTION_DATA[i].en}`,'result-name');createText(card,'strong',avg.toFixed(2)+' / 5','result-average');
+ const dist=document.createElement('div');dist.className='mini-bar';summary.counts[i].forEach((count,k)=>{const b=document.createElement('span');b.style.flex=String(Math.max(1,count));b.style.opacity=count?'1':'.22';b.className='bar-'+(k+1);b.title=`${k+1}: ${count}`;dist.append(b)});card.append(dist);
+ createText(card,'small',summary.counts[i].map((n,i)=>`${i+1}: ${n}`).join('  ·  '),'distribution');grid.append(card);
+ });target.append(grid);
+}
+function toast(message,isError=false){let m=$('status');m.textContent=message;m.className=isError?'status error':'status success';}
+function setBusy(value){busy=value;$('submitButton').disabled=value;$('confirmPassword').disabled=value;}
+function saveLocal(row){const rows=localRows();const index=rows.findIndex(r=>r.studentId===row.studentId);if(index===-1)rows.push(row);else rows[index]=row;localStorage.setItem(DEMO_KEY,JSON.stringify(rows));renderSummary();toast(index===-1?LABELS[lang].success:LABELS[lang].updated);}
+function submitSurvey(ev){ev.preventDefault();if(busy)return;const t=LABELS[lang];if(!getProfile()){toast(t.offlineNoIdentity,true);return}
+ const ratings=ratingValues();if(ratings.some(n=>n===null)){toast(t.incomplete,true);return}
+ if(!$('consent').checked){toast(t.consentWarning,true);return}
+ const record={fullName:identity.fullName,studentId:identity.studentId,ratings,comment:$('freeAnswer').value.trim().slice(0,3000),submittedAt:new Date().toISOString()};
+ if(!isLive){saveLocal(record);return}
+ setBusy(true);sendRemote('submit',{payload:JSON.stringify(record)}).then(result=>{toast(result.updated?t.updated:t.success);setBusy(false);refreshSummary()}).catch(err=>{toast(t.error+' '+err.message,true);setBusy(false)});
+}
+function startPassword(){ $('adminPassword').value='';$('passwordError').textContent='';$('passwordDialog').hidden=false;$('adminPassword').focus(); }
+function closePassword(){ $('passwordDialog').hidden=true;$('adminPassword').value=''; }
+function exportSurvey(){const pin=$('adminPassword').value.trim();if(!pin){$('passwordError').textContent=LABELS[lang].noAdmin;return}
+ if(!isLive){if(pin!==LOCAL_ADMIN_PIN){$('passwordError').textContent=LABELS[lang].passWrong;return}
+  try{downloadWorkbook(localRows());closePassword();toast(LABELS[lang].downloadOk)}catch(e){$('passwordError').textContent=e.message}return;
+ }
+ setBusy(true);sendRemote('export',{pin}).then(result=>{if(!Array.isArray(result.rows))throw Error('No rows returned');downloadWorkbook(result.rows);closePassword();setBusy(false);toast(LABELS[lang].downloadOk);}).catch(e=>{$('passwordError').textContent=e.message;setBusy(false)});
+}
+// Google Apps Script responds with an HTML page in a hidden iframe and posts the JSON response
+// to the parent window (no client CORS bypass or public read endpoint for raw records).
+const remoteFrame=$('surveyBackendFrame');
+const pending=new Map();
+function sendRemote(action,data={}){return new Promise((resolve,reject)=>{
+ const nonce='n'+(++nonceCounter)+'-'+Math.random().toString(36).slice(2,9);
+ const timer=setTimeout(()=>{pending.delete(nonce);reject(Error('Request timed out'))},PENDING_MS);
+ pending.set(nonce,{resolve,reject,timer,action});
+ const form=document.createElement('form');form.method='POST';form.action=BACKEND_URL;form.target='surveyBackendFrame';form.style.display='none';form.acceptCharset='UTF-8';
+ const args={action,nonce,...data};Object.entries(args).forEach(([key,value])=>{const input=document.createElement('input');input.type='hidden';input.name=key;input.value=String(value);form.append(input)});
+ document.body.append(form);form.submit();form.remove();
+ });}
+window.addEventListener('message',event=>{
+ if(!event.data||event.data.jobcommSurvey!==true)return;
+ // The only expected sender is the iframe that we submitted to.
+ if(!isLive || !(event.origin==='https://script.google.com' || (event.origin.startsWith('https://') && new URL(event.origin).hostname.endsWith('.googleusercontent.com'))))return;
+ const data=event.data,active=pending.get(data.nonce);if(!active)return;
+ clearTimeout(active.timer);pending.delete(data.nonce);
+ if(data.ok)active.resolve(data);else active.reject(Error(data.error||'Request failed'));
+});
+function refreshSummary(){if(!isLive){renderSummary();return}sendRemote('summary').then(data=>{
+ if(data.summary && Number.isInteger(data.summary.total) && Array.isArray(data.summary.counts)){remoteSummary=data.summary;renderSummary();}
+ }).catch(()=>{const target=$('summaryContent');target.textContent=LABELS[lang].error;});}
+// A small pure-JavaScript XLSX exporter: no third-party script, works offline and on GitHub Pages.
+function xml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));}
+function colName(n){let result='';for(n++;n>0;n=Math.floor((n-1)/26))result=String.fromCharCode(65+(n-1)%26)+result;return result;}
+function sheetXml(rows){return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+ '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"/></sheetViews><sheetData>'+rows.map((row,r)=>
+ '<row r="'+(r+1)+'">'+row.map((value,c)=>{
+ const ref=colName(c)+(r+1);if(typeof value==='number'&&Number.isFinite(value))return `<c r="${ref}" s="0"><v>${value}</v></c>`;
+ // Prevent spreadsheet formula injection from arbitrary survey comments and identifiers.
+ const str=String(value??'').replace(/^[=+@\-\t\r\n]/,c=>'\''+c);
+ return `<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${xml(str)}</t></is></c>`;
+ }).join('')+'</row>').join('')+'</sheetData></worksheet>';}
+function le16(n){return [n&255,n>>>8&255]}
+function le32(n){return [n&255,n>>>8&255,n>>>16&255,n>>>24&255]}
+const crcTable=Array.from({length:256},(_,n)=>{for(let i=0;i<8;i++)n=n&1?0xEDB88320^(n>>>1):n>>>1;return n>>>0});
+function crc32(bytes){let c=0xFFFFFFFF;for(let b of bytes)c=crcTable[(c^b)&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0}
+function zipFiles(files){const encoder=new TextEncoder();const chunks=[];const central=[];let offset=0;
+ function push(arr){chunks.push(new Uint8Array(arr));offset+=arr.length}
+ for(const [name,source] of files){const path=encoder.encode(name),data=encoder.encode(source),crc=crc32(data),start=offset;
+ push([...le32(0x04034b50),...le16(20),...le16(0x0800),...le16(0),...le16(0),...le16(0),...le32(crc),...le32(data.length),...le32(data.length),...le16(path.length),...le16(0)]);push(path);push(data);
+ central.push([...le32(0x02014b50),...le16(20),...le16(20),...le16(0x0800),...le16(0),...le16(0),...le16(0),...le32(crc),...le32(data.length),...le32(data.length),...le16(path.length),...le16(0),...le16(0),...le16(0),...le16(0),...le32(0),...le32(start),...path]);
+ }
+ const startCentral=offset;central.forEach(push);const centralLength=offset-startCentral;
+ push([...le32(0x06054b50),...le16(0),...le16(0),...le16(files.length),...le16(files.length),...le32(centralLength),...le32(startCentral),...le16(0)]);
+ return new Blob(chunks,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function createExcelBlob(rows){const sum=summaryOf(rows);
+ const overview=[['JOBCOMM – KẾT QUẢ KHẢO SÁT ĐỒ ÁN 3'],['Số phiếu khảo sát',sum.total],[],['Tiêu chí','Điểm trung bình','Mức 1','Mức 2','Mức 3','Mức 4','Mức 5']];
+ QUESTION_DATA.forEach((q,i)=>overview.push([`${i+1}. ${q.name}`,Math.round(sum.averages[i]*100)/100,...sum.counts[i]]));
+ const headers=['Thời điểm gửi','Họ và tên','MSSV',...QUESTION_DATA.map((q,i)=>`Câu ${i+1}: ${q.name}`),'Góp ý tự do'];
+ const raw=[headers,...rows.map(r=>[r.submittedAt||'',r.fullName||'',r.studentId||'',...(r.ratings||[]),r.comment||''])];
+ const contentTypes='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>';
+ const rels='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>';
+ const workbook='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Thong ke" sheetId="1" r:id="rId1"/><sheet name="Cau tra loi" sheetId="2" r:id="rId2"/></sheets></workbook>';
+ const wrels='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>';
+ const styles='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/></cellXfs></styleSheet>';
+ return zipFiles([['[Content_Types].xml',contentTypes],['_rels/.rels',rels],['xl/workbook.xml',workbook],['xl/_rels/workbook.xml.rels',wrels],['xl/styles.xml',styles],['xl/worksheets/sheet1.xml',sheetXml(overview)],['xl/worksheets/sheet2.xml',sheetXml(raw)]]);
+}
+function downloadWorkbook(rows){const blob=createExcelBlob(rows);const href=URL.createObjectURL(blob);const a=document.createElement('a');a.href=href;a.download='JobComm-Khao-sat-Do-an-3-'+new Date().toISOString().slice(0,10)+'.xlsx';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),2000);}
+window.JobCommSurveyTest={createExcelBlob,summaryOf};
+getProfile();languageUI();
+$('questionList').addEventListener('change',updateProgress);
+$('surveyForm').addEventListener('submit',submitSurvey);
+$('languageButton').addEventListener('click',()=>{lang=lang==='vi'?'en':'vi';localStorage.setItem(LANG_KEY,lang);const current=ratingValues();const comment=$('freeAnswer').value;const consent=$('consent').checked;languageUI();current.forEach((v,i)=>{if(v){document.querySelector(`input[name="q${i+1}"][value="${v}"]`).checked=true}});$('freeAnswer').value=comment;$('consent').checked=consent;updateProgress()});
+$('exportButton').addEventListener('click',startPassword);
+$('cancelPassword').addEventListener('click',closePassword);
+$('passwordForm').addEventListener('submit',ev=>{ev.preventDefault();exportSurvey()});
+$('passwordDialog').addEventListener('click',ev=>{if(ev.target===$('passwordDialog'))closePassword()});
+window.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&!$('passwordDialog').hidden)closePassword()});
+refreshSummary();
+})();
+
+</script>
+</body></html>
