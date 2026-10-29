@@ -324,6 +324,36 @@ body[data-page="home"] main>#surveyShortcut{display:block!important;background:#
 .survey-card-content strong{font-size:19px;color:#2a255c}.survey-card-content span{color:#72809b;font-size:13px}
 .survey-card-cta{display:inline-flex;padding:12px 15px;background:#594ce2;border-radius:12px;color:white;font-weight:850;font-size:13px;white-space:nowrap}
 @media(max-width:760px){.survey-card{padding:17px;flex-wrap:wrap}.survey-card-cta{margin-left:0;flex:1;justify-content:center}}
+
+/* JobComm v11 – unified typography, accessible sizes, responsive spacing */
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.62;text-rendering:optimizeLegibility}
+.nav{min-height:79px;gap:20px}
+.logo{font-size:22px!important;letter-spacing:-.35px}
+.links{font-size:15px!important;gap:8px!important}
+.links a{font-size:15px!important;line-height:1.35;padding:9px 11px;white-space:nowrap}
+.lang,.account-nav{font-size:14px!important}
+.section-head h2,.section h2{font-size:clamp(29px,3.1vw,38px);line-height:1.23}
+.section-head p,.page-intro p{font-size:16px!important;line-height:1.75}
+.kicker,.page-tag{font-size:12px!important;letter-spacing:1.1px}
+.mock-shell{max-width:1120px}
+.mock-content{font-size:16px}
+.mock-question{font-size:clamp(23px,2.3vw,28px)!important;line-height:1.36}
+.mock-question-vi,.mock-lead,.mock-tip,.mock-feedback p,.mock-feedback li{font-size:15px!important;line-height:1.7}
+.mock-role strong{font-size:17px!important}
+.mock-role small{font-size:14px!important;line-height:1.6}
+.mock-answer-label{font-size:16px!important}
+.mock-answer{font-size:16px!important;line-height:1.75}
+.mock-btn{font-size:15px!important}
+.mock-mini-label,.mock-count{font-size:14px!important}
+.lesson-card,.lesson-panel,.course,.quiz-question,.lab-card{font-size:15px;line-height:1.65}
+.lesson-panel p,.course p,.lab-card p{line-height:1.7}
+.lab-field span,.lab-field label{font-size:14px}
+.lab-field textarea{font-size:16px;line-height:1.65}
+button,a,input,textarea,select{font-family:inherit}
+button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid #5c50da;outline-offset:3px}
+@media(max-width:1020px){.nav{flex-wrap:wrap;gap:10px}.links{order:3;width:100%;justify-content:center;flex-wrap:wrap}.links a{font-size:14px!important}}
+@media(max-width:550px){.wrap{width:min(100% - 28px,1120px)}.nav{padding:12px 0}.mock-shell{border-radius:17px}.mock-content{padding:19px!important}.mock-role-grid{grid-template-columns:1fr}.section-head h2{font-size:28px}}
 </style><script>(function(){if(location.protocol==='file:')return;try{const user=sessionStorage.getItem('jobcomm-v8-tab-session');const profiles=JSON.parse(localStorage.getItem('jobcomm-v8-local-profiles')||'{}');if(!user||!profiles[user])location.replace('index.html');}catch(e){location.replace('index.html');}})();</script></head>
 <body data-page="courses">
 <header class="topbar"><div class="wrap nav"><a class="logo" href="home.html">JobComm</a><nav aria-label="Main navigation" class="links"><a data-i18n="navHome" href="home.html">Trang chủ</a><a aria-current="page" class="active" data-i18n="navCourses" href="courses.html">Khóa học</a><a data-i18n="navMock" href="interview.html">Phỏng vấn thử</a><a href="career-lab.html" id="careerNav">Phòng luyện tập</a><a href="survey.html" id="surveyNav">Khảo sát đồ án</a></nav><div class="nav-actions"><button aria-label="Switch language" class="lang" id="languageButton" type="button">EN / VI</button><button aria-label="Sign in or view account" class="account-nav" id="accountNav" type="button"><span class="account-avatar" id="accountAvatar">👤</span><span class="account-label" id="accountNavLabel">Sign in</span></button></div></div></header>

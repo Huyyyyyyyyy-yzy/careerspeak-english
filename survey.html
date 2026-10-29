@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>JobComm | Khảo sát đồ án</title>
-<meta name="description" content="Phiếu khảo sát đánh giá Đồ án 3 – JobComm – 7 tiêu chí Likert">
+<meta content="Phiếu khảo sát đánh giá Đồ án 3 – JobComm – 7 tiêu chí Likert" name="description"/>
 <style>
 :root{--navy:#24225d;--purple:#594ce2;--violet:#edeaff;--ink:#1d2c4b;--muted:#6b7896;--border:#dde3f2;--background:#f5f7fe}
 *{box-sizing:border-box}body{margin:0;background:var(--background);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);font-size:15px}
@@ -21,21 +22,32 @@ a{text-decoration:none;color:inherit}button,input,textarea{font:inherit}button{c
 footer{background:#252252;color:#e7e7fc;padding:30px 20px;text-align:center;font-size:12px}
 @media(max-width:950px){.nav{flex-wrap:wrap}.links{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap}.rating-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:650px){.wrap{padding:22px 12px 46px}.survey-box{padding:19px 14px}.rating-grid{grid-template-columns:1fr 1fr}.rating-option{min-height:60px}.results-grid{grid-template-columns:1fr}.identity{gap:20px}.nav{padding:12px}.hero{padding:33px 14px}.modal-actions{flex-direction:column}}
+
+/* JobComm v11 typography alignment */
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.65}
+.logo{font-size:22px!important}
+.links a{font-size:15px!important;padding:9px 12px}
+.hero h1{font-size:clamp(30px,3vw,39px)}
+.hero p,.survey-box p{font-size:15px;line-height:1.7}
+.question h3,.question-title{font-size:17px;line-height:1.5}
+input,textarea,select,button{font-family:inherit;font-size:15px}
+@media(max-width:1000px){.nav{flex-wrap:wrap}.links{order:3;width:100%;justify-content:center}}
 </style>
 </head>
 <body>
-<header class="topbar"><div class="nav"><a class="logo" href="home.html">JobComm</a><nav class="links" aria-label="Main navigation"><a id="navHome" href="home.html">Trang chủ</a><a id="navCourses" href="courses.html">Khóa học</a><a id="navInterview" href="interview.html">Phỏng vấn thử</a><a id="navCareer" href="career-lab.html">Phòng luyện tập</a><a class="active" id="navSurvey" aria-current="page" href="survey.html">Khảo sát đồ án</a></nav><div class="right"><button id="languageButton" class="lang" type="button">VI / EN</button><span class="user" id="studentName">Học viên</span></div></div></header>
+<header class="topbar"><div class="nav"><a class="logo" href="home.html">JobComm</a><nav aria-label="Main navigation" class="links"><a href="home.html" id="navHome">Trang chủ</a><a href="courses.html" id="navCourses">Khóa học</a><a href="interview.html" id="navInterview">Phỏng vấn thử</a><a href="career-lab.html" id="navCareer">Phòng luyện tập</a><a aria-current="page" class="active" href="survey.html" id="navSurvey">Khảo sát đồ án</a></nav><div class="right"><button class="lang" id="languageButton" type="button">VI / EN</button><span class="user" id="studentName">Học viên</span></div></div></header>
 <section class="hero"><div class="eyebrow" id="eyebrow">KHOA NGOẠI NGỮ · ĐỒ ÁN 3</div><h1 id="surveyTitle">Khảo sát đánh giá Đồ án 3</h1><p id="introduction">Bảy câu hỏi đánh giá theo 5 mức độ và phần góp ý tự do.</p></section>
 <main class="wrap"><div class="survey-box">
 <div class="research" id="surveyResearch"></div>
 <div class="identity"><div><label>Người tham gia / Student</label><strong id="studentNameDuplicate">—</strong></div><div><label>Mã sinh viên / Student ID</label><strong id="studentId">—</strong></div><div><label>JobComm · Đồ án 3</label><strong>HUFLIT · 2026</strong></div></div>
-<div class="progress-panel"><div class="progress-top"><span id="progressText">Tiến độ: 0/7 câu</span><span>1–5 ★</span></div><div class="meter" aria-hidden="true"><span id="progressBar"></span></div></div>
-<form id="surveyForm"><div id="questionList"></div><div class="free"><h3 id="freeTitle">8. Đóng góp ý kiến tự do</h3><textarea id="freeAnswer" maxlength="3000" placeholder="Viết góp ý..." aria-label="Góp ý tự do"></textarea></div><label class="consent"><input id="consent" type="checkbox" required><span id="consentText"></span></label><p class="privacy" id="privacy"></p><button class="primary full" id="submitButton" type="submit">Gửi Khảo Sát (0/7 câu)</button><p id="status" class="status" role="status" aria-live="polite"></p></form>
-<section class="stats"><div class="stats-head"><div><h2 id="summaryTitle">Bảng thống kê kết quả khảo sát</h2><p class="desc" id="summaryDesc">Số phiếu và điểm trung bình</p></div><button id="exportButton" type="button" class="secondary">⬇ Xuất bảng Excel (.xlsx)</button></div><p id="modeNotice" class="mode-notice demo"></p><div id="summaryContent" aria-live="polite"></div><p id="exportHelp" class="export-help"></p></section>
+<div class="progress-panel"><div class="progress-top"><span id="progressText">Tiến độ: 0/7 câu</span><span>1–5 ★</span></div><div aria-hidden="true" class="meter"><span id="progressBar"></span></div></div>
+<form id="surveyForm"><div id="questionList"></div><div class="free"><h3 id="freeTitle">8. Đóng góp ý kiến tự do</h3><textarea aria-label="Góp ý tự do" id="freeAnswer" maxlength="3000" placeholder="Viết góp ý..."></textarea></div><label class="consent"><input id="consent" required="" type="checkbox"/><span id="consentText"></span></label><p class="privacy" id="privacy"></p><button class="primary full" id="submitButton" type="submit">Gửi Khảo Sát (0/7 câu)</button><p aria-live="polite" class="status" id="status" role="status"></p></form>
+<section class="stats"><div class="stats-head"><div><h2 id="summaryTitle">Bảng thống kê kết quả khảo sát</h2><p class="desc" id="summaryDesc">Số phiếu và điểm trung bình</p></div><button class="secondary" id="exportButton" type="button">⬇ Xuất bảng Excel (.xlsx)</button></div><p class="mode-notice demo" id="modeNotice"></p><div aria-live="polite" id="summaryContent"></div><p class="export-help" id="exportHelp"></p></section>
 </div></main>
 <footer>© 2026 JobComm · Student project survey · HUFLIT</footer>
-<div id="passwordDialog" class="modal" hidden><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="passwordTitle"><h2 id="passwordTitle">Bảo mật dữ liệu khảo sát</h2><p id="passwordDesc">Vui lòng nhập mật khẩu.</p><form id="passwordForm"><label id="passwordLabel" for="adminPassword">Mật khẩu quản trị</label><input id="adminPassword" class="admin-input" type="password" autocomplete="off" required><p id="passwordError" class="modal-error" role="alert"></p><div class="modal-actions"><button id="cancelPassword" type="button" class="secondary">Hủy bỏ</button><button id="confirmPassword" type="submit" class="primary">Xác nhận & tải Excel</button></div></form></div></div>
-<iframe name="surveyBackendFrame" id="surveyBackendFrame" title="Survey backend" style="display:none"></iframe>
+<div class="modal" hidden="" id="passwordDialog"><div aria-labelledby="passwordTitle" aria-modal="true" class="modal-card" role="dialog"><h2 id="passwordTitle">Bảo mật dữ liệu khảo sát</h2><p id="passwordDesc">Vui lòng nhập mật khẩu.</p><form id="passwordForm"><label for="adminPassword" id="passwordLabel">Mật khẩu quản trị</label><input autocomplete="off" class="admin-input" id="adminPassword" required="" type="password"/><p class="modal-error" id="passwordError" role="alert"></p><div class="modal-actions"><button class="secondary" id="cancelPassword" type="button">Hủy bỏ</button><button class="primary" id="confirmPassword" type="submit">Xác nhận &amp; tải Excel</button></div></form></div></div>
+<iframe id="surveyBackendFrame" name="surveyBackendFrame" style="display:none" title="Survey backend"></iframe>
 <script>
 (() => {
 'use strict';
