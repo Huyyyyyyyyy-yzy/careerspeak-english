@@ -47,19 +47,16 @@ input,textarea,select,button{font-family:inherit;font-size:15px}
 </div></main>
 <footer>© 2026 JobComm · Student project survey · HUFLIT</footer>
 <div class="modal" hidden="" id="passwordDialog"><div aria-labelledby="passwordTitle" aria-modal="true" class="modal-card" role="dialog"><h2 id="passwordTitle">Bảo mật dữ liệu khảo sát</h2><p id="passwordDesc">Vui lòng nhập mật khẩu.</p><form id="passwordForm"><label for="adminPassword" id="passwordLabel">Mật khẩu quản trị</label><input autocomplete="off" class="admin-input" id="adminPassword" required="" type="password"/><p class="modal-error" id="passwordError" role="alert"></p><div class="modal-actions"><button class="secondary" id="cancelPassword" type="button">Hủy bỏ</button><button class="primary" id="confirmPassword" type="submit">Xác nhận &amp; tải Excel</button></div></form></div></div>
-<iframe id="surveyBackendFrame" name="surveyBackendFrame" style="display:none" title="Survey backend"></iframe>
 <script>
 (() => {
 'use strict';
-/* To collect answers across DIFFERENT devices, paste the deployed Google Apps Script URL below.
-   Leave blank to test locally; local mode cannot count all students. */
-const BACKEND_URL = ''; // e.g. https://script.google.com/macros/s/AKfycb.../exec
-const LOCAL_ADMIN_PIN = '0000'; // DEMO ONLY. Real PIN 8386 is checked ONLY in private Code.gs.
+/* Paste the URL of your dedicated Cloudflare survey Worker here after deployment.
+   Do NOT paste Gemini API keys, admin PINs, or Google Sheet private IDs. */
+const BACKEND_URL = 'https://jobcomm-survey.huybui432005.workers.dev';
 const SESSION_KEY = 'jobcomm-v8-tab-session';
 const PROFILES_KEY = 'jobcomm-v8-local-profiles';
 const LANG_KEY = 'jobcomm-language';
-const DEMO_KEY = 'jobcomm-survey-local-responses-v1';
-const PENDING_MS = 25000;
+const PENDING_MS = 40000;
 const QUESTION_DATA = [
   {name:'Tâm lý thoải mái & môi trường hỗ trợ luyện tập',en:'Practice Comfort & Low Pressure Environment',
     vi:'Môi trường phỏng vấn giả lập AI thân thiện, không phán xét giúp em cảm thấy thoải mái, tự nhiên và bớt áp lực hơn so với khi tự luyện tập một mình hoặc phỏng vấn thật.',
@@ -95,8 +92,8 @@ const LABELS = {
   totals:'Bảng thống kê kết quả khảo sát',responses:'Số phiếu đã ghi nhận',reportDesc:'Kết quả trung bình và phân bố lựa chọn theo từng tiêu chí.',
   average:'Điểm trung bình',admin:'Xuất bảng Excel (.xlsx)',passTitle:'Bảo mật dữ liệu khảo sát',passDesc:'Chỉ người quản lý được phép tải dữ liệu và thống kê Excel. Hãy nhập mật khẩu quản trị.',
   passLabel:'Nhập mật khẩu quản trị',passWrong:'Mật khẩu không đúng.',cancel:'Hủy bỏ',download:'Xác nhận & tải Excel',
-  localNotice:'CHẾ ĐỘ DEMO: Dữ liệu chỉ lưu trong trình duyệt này; không tổng hợp giữa các thiết bị. Mã xuất thử 0000 công khai trong mã nguồn, KHÔNG bảo mật thực sự. PIN quản trị 8386 chỉ lưu ở máy chủ.',
-  liveNotice:'Chế độ kết nối Google Sheets: dữ liệu được tổng hợp giữa các thiết bị; mật khẩu xuất Excel được kiểm tra trên máy chủ.',
+  localNotice:'CHƯA KẾT NỐI: Cần cấu hình Worker và Google Sheets; không thể gửi dữ liệu.',
+  liveNotice:'Chế độ ONLINE: Khảo sát được lưu trên Google Sheets dùng chung; chỉ số liệu lưu thành công mới được tính. Xuất Excel yêu cầu mật khẩu máy chủ.',
   privacy:'Đây là khảo sát đồ án, không phải biểu mẫu chính thức của HUFLIT. Khi sử dụng chế độ online, họ tên, MSSV và câu trả lời sẽ được gửi đến Google Sheets của nhóm nghiên cứu. Chỉ cung cấp thông tin khi đã đồng ý tham gia.',
   consent:'Tôi đồng ý gửi thông tin và câu trả lời cho nhóm thực hiện Đồ án 3 để tổng hợp kết quả nghiên cứu.',
   consentWarning:'Bạn cần đồng ý trước khi gửi khảo sát.',
@@ -129,13 +126,10 @@ const LABELS = {
 };
 let lang=(localStorage.getItem(LANG_KEY)==='en')?'en':'vi';
 const $=id=>document.getElementById(id);
-const isLive=BACKEND_URL.trim().startsWith('https://script.google.com/macros/s/');
+const isLive=/^https:\/\/[^/]+\.workers\.dev\/?$/.test(BACKEND_URL.trim()) || (/^https:\/\//.test(BACKEND_URL) && !BACKEND_URL.includes('PASTE_')); 
 let identity={fullName:'',studentId:''};
-let snapshot=[]; // remote mode holds summary only, not raw rows
 let remoteSummary=null;
 let busy=false;
-let operation=null;
-let nonceCounter=0;
 function getProfile(){
  const id=sessionStorage.getItem(SESSION_KEY);
  let users={};try{users=JSON.parse(localStorage.getItem(PROFILES_KEY)||'{}');}catch(e){}
@@ -145,7 +139,6 @@ function getProfile(){
  $('studentId').textContent=identity.studentId||'—';
  return Boolean(identity.studentId);
 }
-function localRows(){try{const r=JSON.parse(localStorage.getItem(DEMO_KEY)||'[]');return Array.isArray(r)?r:[]}catch(e){return []}}
 function hasAnswered(){return QUESTION_DATA.every((_,i)=>document.querySelector(`input[name="q${i+1}"]:checked`));}
 function ratingValues(){return QUESTION_DATA.map((_,i)=>{let e=document.querySelector(`input[name="q${i+1}"]:checked`);return e?Number(e.value):null;})}
 function updateProgress(){let chosen=ratingValues().filter(Number.isFinite).length;$('progressText').textContent=`${LABELS[lang].progress}: ${chosen}/7 ${LABELS[lang].count}`;$('progressBar').style.width=`${(chosen/7*100).toFixed(1)}%`;$('submitButton').textContent=`${LABELS[lang].send} (${chosen}/7 ${LABELS[lang].count})`;}
@@ -178,7 +171,7 @@ function languageUI(){const t=LABELS[lang];document.documentElement.lang=lang;
  getProfile();updateProgress();renderSummary();
 }
 function summaryOf(rows){const counts=QUESTION_DATA.map((_,i)=>[0,0,0,0,0]);rows.forEach(row=>{row.ratings.forEach((v,i)=>{if(v>=1&&v<=5)counts[i][v-1]++})});return {total:rows.length,counts,averages:counts.map(c=>{let n=c.reduce((a,b)=>a+b,0);return n ? c.reduce((a,v,i)=>a+v*(i+1),0)/n : 0})};}
-function renderSummary(){const summary=isLive?remoteSummary:summaryOf(localRows());const target=$('summaryContent');target.replaceChildren();const t=LABELS[lang];
+function renderSummary(){const summary=remoteSummary;const target=$('summaryContent');target.replaceChildren();const t=LABELS[lang];
  if(!summary){createText(target,'div',t.loading,'empty');return;}
  const total=document.createElement('div');total.className='total-summary';createText(total,'strong',summary.total.toLocaleString(lang==='vi'?'vi-VN':'en-US'));createText(total,'span',t.responses);target.append(total);
  if(summary.total===0){createText(target,'p',t.noSheet,'empty');return;}
@@ -190,45 +183,46 @@ function renderSummary(){const summary=isLive?remoteSummary:summaryOf(localRows(
 }
 function toast(message,isError=false){let m=$('status');m.textContent=message;m.className=isError?'status error':'status success';}
 function setBusy(value){busy=value;$('submitButton').disabled=value;$('confirmPassword').disabled=value;}
-function saveLocal(row){const rows=localRows();const index=rows.findIndex(r=>r.studentId===row.studentId);if(index===-1)rows.push(row);else rows[index]=row;localStorage.setItem(DEMO_KEY,JSON.stringify(rows));renderSummary();toast(index===-1?LABELS[lang].success:LABELS[lang].updated);}
 function submitSurvey(ev){ev.preventDefault();if(busy)return;const t=LABELS[lang];if(!getProfile()){toast(t.offlineNoIdentity,true);return}
  const ratings=ratingValues();if(ratings.some(n=>n===null)){toast(t.incomplete,true);return}
  if(!$('consent').checked){toast(t.consentWarning,true);return}
- const record={fullName:identity.fullName,studentId:identity.studentId,ratings,comment:$('freeAnswer').value.trim().slice(0,3000),submittedAt:new Date().toISOString()};
- if(!isLive){saveLocal(record);return}
+ const record={fullName:identity.fullName,studentId:identity.studentId,ratings,comment:$('freeAnswer').value.trim().slice(0,3000),consent:true};
+ if(!isLive){toast(lang==='vi'?'Chưa kết nối Google Sheets. Hãy điền URL Worker khảo sát.':'Not connected to Google Sheets. Set the survey Worker URL first.',true);return}
  setBusy(true);sendRemote('submit',{payload:JSON.stringify(record)}).then(result=>{toast(result.updated?t.updated:t.success);setBusy(false);refreshSummary()}).catch(err=>{toast(t.error+' '+err.message,true);setBusy(false)});
 }
 function startPassword(){ $('adminPassword').value='';$('passwordError').textContent='';$('passwordDialog').hidden=false;$('adminPassword').focus(); }
 function closePassword(){ $('passwordDialog').hidden=true;$('adminPassword').value=''; }
 function exportSurvey(){const pin=$('adminPassword').value.trim();if(!pin){$('passwordError').textContent=LABELS[lang].noAdmin;return}
- if(!isLive){if(pin!==LOCAL_ADMIN_PIN){$('passwordError').textContent=LABELS[lang].passWrong;return}
-  try{downloadWorkbook(localRows());closePassword();toast(LABELS[lang].downloadOk)}catch(e){$('passwordError').textContent=e.message}return;
- }
+ if(!isLive){$('passwordError').textContent=lang==='vi'?'Chưa kết nối Google Sheets. Vui lòng cấu hình Worker.':'Google Sheets is not connected. Configure the Worker first.';return;}
  setBusy(true);sendRemote('export',{pin}).then(result=>{if(!Array.isArray(result.rows))throw Error('No rows returned');downloadWorkbook(result.rows);closePassword();setBusy(false);toast(LABELS[lang].downloadOk);}).catch(e=>{$('passwordError').textContent=e.message;setBusy(false)});
 }
-// Google Apps Script responds with an HTML page in a hidden iframe and posts the JSON response
-// to the parent window (no client CORS bypass or public read endpoint for raw records).
-const remoteFrame=$('surveyBackendFrame');
-const pending=new Map();
-function sendRemote(action,data={}){return new Promise((resolve,reject)=>{
- const nonce='n'+(++nonceCounter)+'-'+Math.random().toString(36).slice(2,9);
- const timer=setTimeout(()=>{pending.delete(nonce);reject(Error('Request timed out'))},PENDING_MS);
- pending.set(nonce,{resolve,reject,timer,action});
- const form=document.createElement('form');form.method='POST';form.action=BACKEND_URL;form.target='surveyBackendFrame';form.style.display='none';form.acceptCharset='UTF-8';
- const args={action,nonce,...data};Object.entries(args).forEach(([key,value])=>{const input=document.createElement('input');input.type='hidden';input.name=key;input.value=String(value);form.append(input)});
- document.body.append(form);form.submit();form.remove();
- });}
-window.addEventListener('message',event=>{
- if(!event.data||event.data.jobcommSurvey!==true)return;
- // The only expected sender is the iframe that we submitted to.
- if(!isLive || !(event.origin==='https://script.google.com' || (event.origin.startsWith('https://') && new URL(event.origin).hostname.endsWith('.googleusercontent.com'))))return;
- const data=event.data,active=pending.get(data.nonce);if(!active)return;
- clearTimeout(active.timer);pending.delete(data.nonce);
- if(data.ok)active.resolve(data);else active.reject(Error(data.error||'Request failed'));
-});
-function refreshSummary(){if(!isLive){renderSummary();return}sendRemote('summary').then(data=>{
- if(data.summary && Number.isInteger(data.summary.total) && Array.isArray(data.summary.counts)){remoteSummary=data.summary;renderSummary();}
- }).catch(()=>{const target=$('summaryContent');target.textContent=LABELS[lang].error;});}
+// Cloudflare Worker handles CORS and sends authenticated server-to-server calls to Google Apps Script.
+async function sendRemote(action,data={}) {
+  if(!isLive) throw new Error('Chưa cấu hình URL Cloudflare Worker khảo sát.');
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),PENDING_MS);
+  try {
+    const response=await fetch(BACKEND_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action,...data}),
+      signal:controller.signal,
+      cache:'no-store'
+    });
+    let result;
+    try {result=await response.json()}catch(e){throw new Error('Máy chủ không trả về JSON hợp lệ.');}
+    if(!response.ok || result.ok!==true)throw new Error(result.error||`Lỗi HTTP ${response.status}`);
+    return result;
+  } finally {clearTimeout(timer);}
+}
+function refreshSummary(){
+ if(!isLive){remoteSummary=null;renderSummary();return}
+ sendRemote('summary').then(data=>{
+  if(data.summary && Number.isInteger(data.summary.total) && Array.isArray(data.summary.counts)){
+   remoteSummary=data.summary;renderSummary();
+  }
+ }).catch(error=>{$('summaryContent').textContent=LABELS[lang].error+' '+error.message;});
+}
 // A small pure-JavaScript XLSX exporter: no third-party script, works offline and on GitHub Pages.
 function xml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));}
 function colName(n){let result='';for(n++;n>0;n=Math.floor((n-1)/26))result=String.fromCharCode(65+(n-1)%26)+result;return result;}
